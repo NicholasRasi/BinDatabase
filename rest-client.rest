@@ -1,0 +1,27 @@
+### Create new bin
+POST http://{{host}}:{{port}}/new
+Content-Type: application/json
+
+{
+  "id": "bin1",
+  "desc": "test bin"
+}
+
+### Get all bins data
+GET http://{{host}}:{{port}}/all
+Accept: application/json
+
+### Get bin data
+GET http://{{host}}:{{port}}/bin1
+Accept: application/json
+
+### Post data to bin
+POST http://{{host}}:{{port}}/bin1
+Content-Type: application/json
+
+{
+  "bench_1": 1000,
+  "bench_2": 200
+}
+
+###
