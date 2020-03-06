@@ -17,7 +17,7 @@ def get_all():
 def create_new():
     request_data = request.get_json()
     data_bin = db.search(Query().id == request_data["id"])
-    if len(data_bin) != 0:
+    if len(data_bin) != 0 or str[request_data["id"] == "new"]:
         return {'error': 'bin already created'}, 400
     else:
         db.insert({'id': str(request_data["id"]),
