@@ -6,6 +6,8 @@ import logging
 
 app = Flask(__name__)
 CORS(app)
+logging.basicConfig(level=logging.DEBUG)
+db = TinyDB('db.json')
 
 @app.route('/all')
 def get_all():
@@ -50,6 +52,4 @@ def read_write(bin_id):
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.DEBUG)
-    db = TinyDB('db.json')
     app.run(host='0.0.0.0', port=8080)
