@@ -1,3 +1,5 @@
+import argparse
+
 from flask import Flask, request
 from flask_cors import CORS
 from tinydb import TinyDB, Query
@@ -19,7 +21,7 @@ def get_all():
 def create_new():
     request_data = request.get_json()
     data_bin = db.search(Query().id == request_data["id"])
-    if len(data_bin) != 0 or str[request_data["id"] == "new"]:
+    if len(data_bin) != 0 or str(request_data["id"]) == "new":
         return {'error': 'bin already created'}, 400
     else:
         db.insert({'id': str(request_data["id"]),
@@ -52,4 +54,7 @@ def read_write(bin_id):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8080)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--port', type=int, default=8080)
+    args = parser.parse_args()
+    app.run(host='0.0.0.0', port=args.port)
