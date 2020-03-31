@@ -4,11 +4,13 @@ from flask_cors import CORS
 from tinydb import TinyDB, Query
 import datetime
 import logging
+from threading import Lock
 
 app = Flask(__name__)
 CORS(app)
 logging.basicConfig(level=logging.DEBUG)
 db = TinyDB('db.json')
+mutex = Lock()
 
 
 def create_new(bin_id):
@@ -46,11 +48,14 @@ def read_write(bin_id):
         # return bin data if exists
         return get_bin_data(data_bin)
     elif request.method == 'POST':
+        mutex.acquire()
         if len(data_bin) == 0:
             # bin not present -> create bin -> add value
             create_new(bin_id)
             data_bin = db.search(Query().id == bin_id)
-        return add_data(bin_id, data_bin)
+        ret = add_data(bin_id, data_bin)
+        mutex.release()
+        return ret
 
 
 if __name__ == "__main__":
