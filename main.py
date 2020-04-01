@@ -43,12 +43,16 @@ def get_all():
 @app.route('/<bin_id>', methods=['GET', 'POST'])
 def read_write(bin_id):
     bin_id = str(bin_id)
-    data_bin = db.search(Query().id == bin_id)
     if request.method == 'GET':
+        mutex.acquire()
+        data_bin = db.search(Query().id == bin_id)
         # return bin data if exists
-        return get_bin_data(data_bin)
+        ret = get_bin_data(data_bin)
+        mutex.release()
+        return ret
     elif request.method == 'POST':
         mutex.acquire()
+        data_bin = db.search(Query().id == bin_id)
         if len(data_bin) == 0:
             # bin not present -> create bin -> add value
             create_new(bin_id)
