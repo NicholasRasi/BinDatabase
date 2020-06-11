@@ -1,21 +1,19 @@
 # bin-database
-A simple bin database with REST interface
+A minimal thread-safe bin database with a REST interface (Flask + TinyDB).
 
+## Usage
+```python
+# init
+virtualenv env
+source env/bin/activate
+pip install -r requirements.txt
+# run
+python main.py --host "0.0.0.0" --port 8080
+```
 ### Usage
 Push JSON documents into a bin
 
-1. create a bin
-```
-POST http://localhost:8080/new
-Content-Type: application/json
-
-{
-  "id": "bin_name",
-  "desc": "bin description"
-}
-``` 
-
-2. post data to bin
+1. post data to bin, if the bin does not exist it will be created
 ```
 POST http://localhost:8080/bin_name
 Content-Type: application/json
@@ -27,7 +25,7 @@ Content-Type: application/json
 
 ```
 
-3. get bin data
+2. get bin data
 ```
 GET http://localhost:8080/bin_name
 Accept: application/json
