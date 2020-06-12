@@ -1,5 +1,5 @@
 # bin-database
-A minimal thread-safe bin database with a REST interface (Flask + TinyDB).
+A minimal lightweight thread-safe bin database with REST interface (Flask + TinyDB)
 
 ## Usage
 ```python
