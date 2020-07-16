@@ -1,4 +1,4 @@
-# bin-database
+# BinDatabase
 A minimal lightweight thread-safe bin database with REST interface (Flask + TinyDB)
 
 ## Usage
